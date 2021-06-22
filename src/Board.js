@@ -8,7 +8,7 @@ import "./Board.css";
  *
  * - nrows: number of rows of board
  * - ncols: number of cols of board
- * - chanceLightStartsOn: float, chance any cell is lit at start of game
+ * - chanceLightStartsOn: float between 0 and 1, chance any cell is lit at start of game
  *
  * State:
  *
@@ -32,8 +32,14 @@ function Board({ nrows, ncols, chanceLightStartsOn }) {
 
   /** create a board nrows high/ncols wide, each cell randomly lit or unlit */
   function createBoard() {
-    let initialBoard = [];
-    // TODO: create array-of-arrays of true/false values
+    // now my initial board is an array containing nrows of arrays ncols long
+    let initialBoard = Array.from({ length: nrows }).map( () => Array.from({ length: ncols}));
+    // create array-of-arrays of true/false values based on chanceLightsStartOn
+    initialBoard = initialBoard.map(row => 
+      row.map(cell => 
+        Math.random < chanceLightStartsOn
+    ));
+
     return initialBoard;
   }
 
@@ -62,14 +68,15 @@ function Board({ nrows, ncols, chanceLightStartsOn }) {
       // TODO: return the copy
     });
   }
-
+  if(hasWon){
   // if the game is won, just show a winning msg & render nothing else
-
-  // TODO
-
-  // make table board
-
-  // TODO
+    return <h1>You Won!</h1>
+  }  else {
+    // make table board
+    return <div className="Board">
+          </div>
+    
+  }
 }
 
 export default Board;
