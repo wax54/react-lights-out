@@ -76,19 +76,26 @@ function Board({ nrows=4, ncols=4, chanceLightStartsOn=0.5 }) {
   }
   if(hasWon()){
   // if the game is won, just show a winning msg & render nothing else
-    return <h1>You Won!</h1>
+    return (
+      <>
+      <h1>You Won!</h1>
+      <button onClick={() => setBoard(createBoard())}>Restart</button>
+      </>
+    )
   }  else {
     // make table board
     return (
-    <div className="Board">
+    <table className="Board">
+      <tbody>
         { board.map((row, y) => 
-          <div className="Board-row">
+          <tr className="Board-row" key={`row-${y}`}>
             { row.map((cell, x) =>
-              <Cell isLit={cell} flipCellsAroundMe={() => flipCellsAround(`${x}-${y}`)} />
+              <Cell isLit={cell} flipCellsAroundMe={() => flipCellsAround(`${x}-${y}`)} key={`${x}-${y}`}/>
             ) }
-            </div> 
+            </tr> 
         ) }
-    </div>
+      </tbody>
+    </table>
     )
     
   }
